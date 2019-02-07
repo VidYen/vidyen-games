@@ -10,21 +10,7 @@ License:      GPLv3
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-/*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, version 3 of the License
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* See <http://www.gnu.org/licenses/>.
-*/
-
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
 
 register_activation_hook(__FILE__, 'vy_quads_wcw_install');
 
@@ -79,7 +65,6 @@ include( plugin_dir_path( __FILE__ ) . 'includes/functions/ww/vy_quads_wcw_debit
 include( plugin_dir_path( __FILE__ ) . 'includes/functions/ww/vy_quads_wcw_bal_func.php'); //Function to check bal the WooWallet.
 
 /*** AJAX ***/
-include( plugin_dir_path( __FILE__ ) . 'includes/functions/ajax/vyps_ajaxurl.php'); //Forces ajax to be called regardless of installation
-include( plugin_dir_path( __FILE__ ) . 'includes/functions/ajax/vyps_mo_ajax.php'); //MO Pull ajax
+include( plugin_dir_path( __FILE__ ) . 'includes/functions/ajax/vy-quads-wcw-ajaxurl.php'); //Forces ajax to be called regardless of installation
 
 /*** End of Function Includes ***/
