@@ -47,7 +47,7 @@ function vy_quads_wcw_func( $atts )
   $vyps_quads_jquery_folder_url = str_replace('shortcodes/', '', $vyps_quads_jquery_folder_url); //having to reomove the folder depending on where you plugins might happen to be
   $vyps_quads_js_url =  $vyps_quads_jquery_folder_url . 'jquery-1.8.3.min.js';
 
-  $starting_balance_html = vyps_balance_func($atts);
+  $starting_balance_html = vy_quads_wcw_bal_func($atts);
 
   //Font size. Not really that important, but someone might complain
   $font_size = 'font-size:' . intval($atts['font']) . 'px;';
