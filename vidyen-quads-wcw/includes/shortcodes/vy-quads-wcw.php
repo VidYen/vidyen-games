@@ -22,7 +22,7 @@ function vy_quads_wcw_func( $atts )
         'betbase' => 10,
         'betmulti' => 10,
         'font' => 40,
-    ), $atts, 'vyps-quads' );
+    ), $atts, 'vy-quads-wcw' );
 
   //Login check.
   if ( ! is_user_logged_in() )
@@ -141,14 +141,14 @@ function vy_run_quads_wcw_action()
   check_ajax_referer( 'vy-quads-wcw-nonce-quads', 'vypsnoncepost' );
 
   //If its not clear, this is actually needed an should be left alone. In theory, user could hack a post somehow getting around the vypsnonce, but it just bets what its given and validates.
-  $incoming_multiplier = intval( $_POST['multicheck'] );
-  $bet_cost = ($incoming_multiplier / 100);
+  $incoming_multiplier = intval($_POST['multicheck']);
+  $bet_cost = floatval(($incoming_multiplier / 100));
 
   // Shortcode additions.
   $atts = shortcode_atts(
 		array(
 				'outputid' => $incoming_pointid_get,
-				'outputamount' => 1,
+				'outputamount' => $bet_cost,
         'refer' => 0,
 				'to_user_id' => get_current_user_id(),
         'comment' => '',
@@ -159,12 +159,12 @@ function vy_run_quads_wcw_action()
         'pid' => $incoming_pointid_get,
         'firstid' => $incoming_pointid_get,
         'firstamount' => $bet_cost,
-    ), $atts, 'vyps-pe' );
+    ), $atts, 'vy-quads-wcw' );
 
   //Get current balance.
-  $pre_current_user_balance = vy_quads_wcw_bal_func($atts);
+  $pre_current_user_balance = floatval(vy_quads_wcw_bal_func($atts));
 
-  if ( $pre_current_user_balance <= $bet_cost )
+  if ($bet_cost >= $pre_current_user_balance)
   {
     //Not enough to play!
     $post_current_user_balance = vy_quads_wcw_bal_func($atts);
