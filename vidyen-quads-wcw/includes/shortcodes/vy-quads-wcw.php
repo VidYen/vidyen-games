@@ -47,20 +47,26 @@ function vy_quads_wcw_func( $atts )
   $vyps_quads_jquery_folder_url = str_replace('shortcodes/', '', $vyps_quads_jquery_folder_url); //having to reomove the folder depending on where you plugins might happen to be
   $vyps_quads_js_url =  $vyps_quads_jquery_folder_url . 'jquery-1.8.3.min.js';
 
-  $starting_balance_html = vy_quads_wcw_bal_func($atts);
+  $starting_balance_html = "<span class=\"woo-wallet-icon-wallet\"></span>" . vy_quads_wcw_bal_func($atts);
 
   //Font size. Not really that important, but someone might complain
   $font_size = 'font-size:' . intval($atts['font']) . 'px;';
 
   //Setting the intervals of bets
-  $bet_base = intval($atts['betbase']);
+  $bet_base = floatval($atts['betbase']); //no need to have ints with woowallet
   $bet_multi = intval($atts['betmulti']);
 
+  //This is the passed number
+  $bet_first = ($bet_base);
+  $bet_second = ($bet_base * $bet_multi);
+  $bet_third = ($bet_base * $bet_multi * $bet_multi);
+  $bet_fourth = ($bet_base * $bet_multi * $bet_multi * $bet_multi);
+
   //The shortcode should allow users to set the intervals of the bets. Honestly, I think this is ok for ajax to pass as the outcome ratios are not determined by shortcode (and I don't think they will ever be directly. Perhaps an SQL pass will have to be done)
-  $bet_first = $bet_base;
-  $bet_second = $bet_base * $bet_multi;
-  $bet_third = $bet_base * $bet_multi * $bet_multi;
-  $bet_fourth = $bet_base * $bet_multi * $bet_multi * $bet_multi;
+  $bet_first_display = number_format($bet_base, 2);
+  $bet_second_display = number_format($bet_base * $bet_multi, 2);
+  $bet_third_display = number_format($bet_base * $bet_multi * $bet_multi, 2);
+  $bet_fourth_display = number_format($bet_base * $bet_multi * $bet_multi * $bet_multi, 2);
 
   $icon_url = "<span class=\"woo-wallet-icon-wallet\"></span>";
 
@@ -106,10 +112,10 @@ function vy_quads_wcw_func( $atts )
     $VYPS_power_row
     <div align=\"center\"><span id=\"animated_number_output\" style=\"display:block; $font_size\">0000</span></div>
     <div align=\"center\"><span id=\"number_output\" style=\"display:none; $font_size\">0000</span></div>
-    <div id=\"bet_action1\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_first)\" style=\"width:50%;\">$icon_url $bet_first</button><button onclick=\"gettherng($bet_second)\" style=\"width:50%;\">$icon_url $bet_second</button></div>
-    <div id=\"bet_action2\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_third)\" style=\"width:50%;\">$icon_url $bet_third</button><button onclick=\"gettherng($bet_fourth)\" style=\"width:50%;\">$icon_url $bet_fourth</button></div>
+    <div id=\"bet_action1\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_first)\" style=\"width:50%;\">$icon_url . '$' . $bet_first_display</button><button onclick=\"gettherng($bet_second)\" style=\"width:50%;\">$icon_url . '$' . $bet_second_display</button></div>
+    <div id=\"bet_action2\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_third)\" style=\"width:50%;\">$icon_url . '$' . $bet_third_display</button><button onclick=\"gettherng($bet_fourth)\" style=\"width:50%;\">$icon_url . '$' . $bet_fourth_display</button></div>
     <div align=\"center\"><span>Balance: </span><span id=\"current_balance\">$starting_balance_html</span></div>
-    <div id=\"results_div\" align=\"center\" style=\"display:none;\"><span id=\"response_text\"></span><span>$icon_url </span><span id=\"reward_balance\">0</span></div>
+    <div id=\"results_div\" align=\"center\" style=\"display:none;\"><span id=\"response_text\"></span><span>$icon_url </span><span id=\"reward_balance\">$0.00</span></div>
     ";
 
     return $vy_quads_wcw_html_output;
