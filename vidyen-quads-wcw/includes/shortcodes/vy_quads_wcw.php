@@ -73,7 +73,7 @@ function vy_quads_wcw_func( $atts )
   $bet_third = $bet_base * $bet_multi * $bet_multi;
   $bet_fourth = $bet_base * $bet_multi * $bet_multi * $bet_multi;
 
-  $icon_url = vyps_point_icon_func($pointID);
+  $icon_url = "<span class=\"woo-wallet-icon-wallet\"></span>";
 
   $vy_quads_wcw_html_output = "
     <script>
