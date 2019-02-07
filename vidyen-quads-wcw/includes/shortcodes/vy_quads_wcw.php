@@ -39,16 +39,15 @@ function vy_quads_wcw_func( $atts )
   }
 
   //Adding a nonce to the post
-  $vyps_nonce_check = wp_create_nonce( 'vyps-nonce-quads' );
+  $vyps_nonce_check = wp_create_nonce( 'vy-quads-wcw-nonce-quads' );
 
   $VYPS_power_url = plugins_url( 'images/', dirname(__FILE__) ) . 'powered_by_vyps.png'; //Well it should work out.
   $VYPS_power_row = "<div align=\"left\">Powered by <a href=\"https://wordpress.org/plugins/vidyen-point-system-vyps/\" target=\"_blank\"><img src=\"$VYPS_power_url\" alt=\"Powered by VYPS\"></a></div>";
 
   //Procheck here. Do not forget the ==
-  if (vyps_procheck_func($atts) == 1) {
-
+  if (vyps_procheck_func($atts) == 1)
+  {
     $VYPS_power_row = ''; //No branding if procheck is correct.
-
   }
 
   //Get the url for the Quads js
@@ -144,7 +143,7 @@ function vy_run_quads_wcw_action()
   global $wpdb; // this is how you get access to the database
 
   //This should cause a die. If the nonce fails.
-  check_ajax_referer( 'vyps-nonce-quads', 'vypsnoncepost' );
+  check_ajax_referer( 'vy-quads-wcw-nonce-quads', 'vypsnoncepost' );
 
   //If its not clear, this is actually needed an should be left alone. In theory, user could hack a post somehow getting around the vypsnonce, but it just bets what its given and validates.
   $incoming_multiplier = intval( $_POST['multicheck'] );
