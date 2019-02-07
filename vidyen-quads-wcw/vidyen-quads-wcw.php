@@ -63,8 +63,6 @@ function vy_quads_wcw_parent_menu_page()
 	";
 
 	include( plugin_dir_path( __FILE__ ) . 'includes/menus/credits.php');
-	//plugins_url( 'includes/menus/credits.php', __FILE__ );
-
 }
 
 /*** SHORTCODE INCLUDES IN BASE ***/
