@@ -5,8 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //Rather than making the point exchange shortcode even larger
 //I am moving the WooWallet move function here.
 
-/*** WOOWALLET BALANCE FUNCTION ***/
-function vyps_woowallet_bal_func( $atts ) {
+//BTW This is an undocumented function. In theory you could use wallet purchases to buy points.
+//Not sure why you would with Dashed Slug being better at this but you could.
+
+/*** WOOWALLET DEBIT FUNCTION ***/
+function vy_quads_wcw_debit_func( $atts ) {
 
   //Check if user is logged in.
   //I've decided that the ! bothers me. Readability over efficiency.
@@ -46,8 +49,8 @@ function vyps_woowallet_bal_func( $atts ) {
     //Well this was 100% easier. I should have did this years ago.
     //Direct WooWallet Calls
 
-    $woo_balance = woo_wallet()->wallet->get_wallet_balance($user_id);
+    woo_wallet()->wallet->credit($user_id, $amount, $details);
 
-    return $woo_balance; //With balance, there should be a number returned.
+    return 1; //Let them know it worked.
 
 }

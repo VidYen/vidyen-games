@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //Rather than making the point exchange shortcode even larger
 //I am moving the WooWallet move function here.
 
-/*** WOOWALLET CREDIT FUNCTION ***/
-function vyps_woowallet_credit_func( $atts ) {
+/*** WOOWALLET BALANCE FUNCTION ***/
+function vy_quads_wcw_bal_func( $atts ) {
 
   //Check if user is logged in.
   //I've decided that the ! bothers me. Readability over efficiency.
@@ -46,8 +46,8 @@ function vyps_woowallet_credit_func( $atts ) {
     //Well this was 100% easier. I should have did this years ago.
     //Direct WooWallet Calls
 
-    woo_wallet()->wallet->credit($user_id, $amount, $details);
+    $woo_balance = woo_wallet()->wallet->get_wallet_balance($user_id);
 
-    return 1; //Let them know it worked. But its an action not a value.
+    return $woo_balance; //With balance, there should be a number returned.
 
 }
