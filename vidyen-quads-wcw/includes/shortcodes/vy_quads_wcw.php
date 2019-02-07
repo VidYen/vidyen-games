@@ -55,7 +55,7 @@ function vy_quads_wcw_func( $atts )
   $vyps_quads_jquery_folder_url = str_replace('shortcodes/', '', $vyps_quads_jquery_folder_url); //having to reomove the folder depending on where you plugins might happen to be
   $vyps_quads_js_url =  $vyps_quads_jquery_folder_url . 'jquery-1.8.3.min.js';
 
-  $starting_balance_html = vyps_balance_func( $atts );
+  $starting_balance_html = vyps_balance_func($atts);
 
   //Font size. Not really that important, but someone might complain
   $font_size = 'font-size:' . intval($atts['font']) . 'px;';
@@ -189,8 +189,8 @@ function vy_run_quads_wcw_action()
   //Deduct. I figure there is a check when need to run.
   $deduct_results = vy_quads_wcw_debit_func($atts);
 
-  if ( $deduct_results == 0 ){
-
+  if ( $deduct_results == 0 )
+  {
     //Not enough to play!
     $post_current_user_balance = vy_quads_wcw_bal_func($atts);
 
@@ -218,7 +218,6 @@ function vy_run_quads_wcw_action()
     echo json_encode($rng_array_server_response);
 
     wp_die(); // this is required to terminate immediately and return a proper response
-
   }
 
   $digit_first = mt_rand(0, 9);
