@@ -172,17 +172,6 @@ function vy_run_quads_wcw_action()
         'firstamount' => $bet_cost,
     ), $atts, 'vyps-pe' );
 
-  //This is hardcoded for now.
-  //$bet_cost = $atts['cost'];
-
-
-  /* It dawned on me I should have these in the above rather than below. Its all doing into atts
-  $atts['to_user_id'] = get_current_user_id();
-  $atts['pid'] = $incoming_pointid_get;
-  $atts['firstid'] = $incoming_pointid_get;
-  $atts['firstamount'] = $bet_cost;
-  $atts['reason'] = 'QUADBET';
-  */
   //Get current balance.
   $pre_current_user_balance = vy_quads_wcw_bal_func($atts);
 
