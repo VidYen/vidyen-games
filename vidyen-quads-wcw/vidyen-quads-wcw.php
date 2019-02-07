@@ -1,5 +1,5 @@
 <?php
- /*
+/*
 Plugin Name:  VidYen Quads for WC Wallet
 Plugin URI:   https://wordpress.org/plugins/vidyen-point-system-vyps/
 Description:  VidYen match four of a kink game for WooCommerce Wallet
