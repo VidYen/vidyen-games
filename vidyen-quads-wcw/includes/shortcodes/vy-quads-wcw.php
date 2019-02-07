@@ -112,8 +112,8 @@ function vy_quads_wcw_func( $atts )
     $VYPS_power_row
     <div align=\"center\"><span id=\"animated_number_output\" style=\"display:block; $font_size\">0000</span></div>
     <div align=\"center\"><span id=\"number_output\" style=\"display:none; $font_size\">0000</span></div>
-    <div id=\"bet_action1\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_first)\" style=\"width:50%;\">$icon_url . '$' . $bet_first_display</button><button onclick=\"gettherng($bet_second)\" style=\"width:50%;\">$icon_url . '$' . $bet_second_display</button></div>
-    <div id=\"bet_action2\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_third)\" style=\"width:50%;\">$icon_url . '$' . $bet_third_display</button><button onclick=\"gettherng($bet_fourth)\" style=\"width:50%;\">$icon_url . '$' . $bet_fourth_display</button></div>
+    <div id=\"bet_action1\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_first)\" style=\"width:50%;\">$icon_url $$bet_first_display</button><button onclick=\"gettherng($bet_second)\" style=\"width:50%;\">$icon_url $$bet_second_display</button></div>
+    <div id=\"bet_action2\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_third)\" style=\"width:50%;\">$icon_url $$bet_third_display</button><button onclick=\"gettherng($bet_fourth)\" style=\"width:50%;\">$icon_url $$bet_fourth_display</button></div>
     <div align=\"center\"><span>Balance: </span><span id=\"current_balance\">$starting_balance_html</span></div>
     <div id=\"results_div\" align=\"center\" style=\"display:none;\"><span id=\"response_text\"></span><span>$icon_url </span><span id=\"reward_balance\">$0.00</span></div>
     ";
@@ -140,13 +140,7 @@ function vy_run_quads_wcw_action()
   check_ajax_referer( 'vy-quads-wcw-nonce-quads', 'vypsnoncepost' );
 
   //If its not clear, this is actually needed an should be left alone. In theory, user could hack a post somehow getting around the vypsnonce, but it just bets what its given and validates.
-  $incoming_multiplier = intval( $_POST['multicheck'] );
-
-  //In theory this could be hacked as well if they looked at the VYPS code. An admin could change one of these numbers if they so desire though in their own php.
-  //Its better than nothing I guess.
-  $incoming_pointid_get = intval(base64_decode( $_POST['pointid'])) - 100256;
-  //$incoming_pointid_get = 4;
-
+  $incoming_multiplier = floatval( $_POST['multicheck'] );
   $bet_cost = $incoming_multiplier;
 
   // Shortcode additions.
