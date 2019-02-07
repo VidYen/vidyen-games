@@ -62,7 +62,7 @@ include( plugin_dir_path( __FILE__ ) . 'includes/shortcodes/vy-quads-wcw.php'); 
 /*** WW ***/
 include( plugin_dir_path( __FILE__ ) . 'includes/functions/ww/vy_quads_wcw_credit_func.php'); //Function to credit the WooWallet.
 include( plugin_dir_path( __FILE__ ) . 'includes/functions/ww/vy_quads_wcw_debit_func.php'); //Function to debit the WooWallet.
-include( plugin_dir_path( __FILE__ ) . 'includes/functions/ww/vy_quads_wcw_bal_func.php'); //Function to check bal the WooWallet.
+include( plugin_dir_path( __FILE__ ) . 'includes/functions/ww/vvy_quads_wcw_bal_func.php'); //Function to check bal the WooWallet.
 
 /*** AJAX ***/
 include( plugin_dir_path( __FILE__ ) . 'includes/functions/ajax/vy-quads-wcw-ajaxurl.php'); //Forces ajax to be called regardless of installation

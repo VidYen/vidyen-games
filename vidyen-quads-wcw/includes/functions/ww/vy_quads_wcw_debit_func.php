@@ -42,13 +42,13 @@ function vy_quads_wcw_debit_func($atts)
 		), $atts, 'vyps-pe' );
 
     $user_id = get_current_user_id(); //Since this doesn't carry over from the shortcode $atts (thank god hard ware is improving exponentially)
-    $amount = floatval($atts['outputamount']) * -1; //desintation amount. Just making sure its numeric
+    $amount = floatval($atts['outputamount']); //desintation amount. Just making sure its numeric
     $details = 'Quads Transfer';
 
     //Well this was 100% easier. I should have did this years ago.
     //Direct WooWallet Calls
 
-    woo_wallet()->wallet->credit($user_id, $amount, $details);
+    woo_wallet()->wallet->debit($user_id, $amount, $details);
 
     return 1; //Let them know it worked.
 

@@ -142,7 +142,7 @@ function vy_run_quads_wcw_action()
 
   //If its not clear, this is actually needed an should be left alone. In theory, user could hack a post somehow getting around the vypsnonce, but it just bets what its given and validates.
   $incoming_multiplier = intval( $_POST['multicheck'] );
-  $bet_cost = $incoming_multiplier;
+  $bet_cost = ($incoming_multiplier / 100);
 
   // Shortcode additions.
   $atts = shortcode_atts(
@@ -164,10 +164,7 @@ function vy_run_quads_wcw_action()
   //Get current balance.
   $pre_current_user_balance = vy_quads_wcw_bal_func($atts);
 
-  //Deduct. I figure there is a check when need to run.
-  $deduct_results = vy_quads_wcw_debit_func($atts);
-
-  if ( $deduct_results == 0 )
+  if ( $pre_current_user_balance <= $bet_cost )
   {
     //Not enough to play!
     $post_current_user_balance = vy_quads_wcw_bal_func($atts);
@@ -198,6 +195,9 @@ function vy_run_quads_wcw_action()
     wp_die(); // this is required to terminate immediately and return a proper response
   }
 
+  //Deduct. I figure there is a check when need to run.
+  $deduct_results = vy_quads_wcw_debit_func($atts);
+
   $digit_first = mt_rand(0, 9);
   $digit_second = mt_rand(0, 9);
   $digit_third = mt_rand(0, 9);
@@ -209,49 +209,49 @@ function vy_run_quads_wcw_action()
   {
     //WE got quads
     $response_text = "QUADS";
-    $reward_amount = intval($bet_cost * 10 ); //Ok. It took me a while to figure out fair odds. Basically this is = 1/( (1/10) * (1/10) * (1/10) * (1/10) ) odds per point spend of winning or 0.0001% of getting quads per roll
+    $reward_amount = floatval($bet_cost * 10 ); //Ok. It took me a while to figure out fair odds. Basically this is = 1/( (1/10) * (1/10) * (1/10) * (1/10) ) odds per point spend of winning or 0.0001% of getting quads per roll
     $rng_numbers_combined = '<b>' . $digit_first . $digit_second . $digit_third . $digit_fourth . '</b>'; //Bolding for end user
   }
   elseif (($digit_first == $digit_second) AND ($digit_first == $digit_third))
   {
     //We got trips on first 3
     $response_text = "TRIPS";
-    $reward_amount = intval($bet_cost * 5); //Or =1/((1/10)*(1/10)*(1/10)+(1/10)*(1/10)*(1/10))
+    $reward_amount = floatval($bet_cost * 5); //Or =1/((1/10)*(1/10)*(1/10)+(1/10)*(1/10)*(1/10))
     $rng_numbers_combined = '<b>' . $digit_first . $digit_second . $digit_third . '</b>' . $digit_fourth; //First three bold
   }
   elseif (($digit_second == $digit_third) AND ($digit_second == $digit_fourth))
   {
     //trips on last 3
     $response_text = "TRIPS";
-    $reward_amount = intval($bet_cost * 5);
+    $reward_amount = floatval($bet_cost * 5);
     $rng_numbers_combined = $digit_first . '<b>' . $digit_second . $digit_third . $digit_fourth . '</b>'; //Last three bold
   }
   elseif ($digit_first == $digit_second)
   {
     //dubs on first 2
     $response_text = "DUBS";
-    $reward_amount = intval($bet_cost * 2.317443396445042); //Ok. I wish I could post how i got this number, but had a discussion on a discord about the fair payout on this.
+    $reward_amount = floatval($bet_cost * 2.317443396445042); //Ok. I wish I could post how i got this number, but had a discussion on a discord about the fair payout on this.
     $rng_numbers_combined = '<b>' . $digit_first . $digit_second . '</b>' . $digit_third . $digit_fourth; //First two
   }
   elseif ($digit_second == $digit_third)
   {
     //dubs on  middle 2
     $response_text = "DUBS";
-    $reward_amount = intval($bet_cost * 2.317443396445042);
+    $reward_amount = floatval($bet_cost * 2.317443396445042);
     $rng_numbers_combined = $digit_first . '<b>' . $digit_second . $digit_third . '</b>' . $digit_fourth; //Middle two
   }
   elseif ($digit_third == $digit_fourth)
   {
     //dubs on last 2
     $response_text = "DUBS";
-    $reward_amount = intval($bet_cost * 2.317443396445042);
+    $reward_amount = floatval($bet_cost * 2.317443396445042);
     $rng_numbers_combined = $digit_first . $digit_second . '<b>' . $digit_third . $digit_fourth . '</b>'; //Last two
   }
   elseif ($digit_first == $digit_second AND $digit_third == $digit_fourth )
   {
     //ddouble dubs
     $response_text = "DOUBLEDUBS";
-    $reward_amount = intval($bet_cost * 5); //Same as trips but half as unlikely as you pairs although almost statitically the same do not require the same card. A statistics major might want to argue this with me though.
+    $reward_amount = floatval($bet_cost * 5); //Same as trips but half as unlikely as you pairs although almost statitically the same do not require the same card. A statistics major might want to argue this with me though.
     $rng_numbers_combined = $digit_first . $digit_second . '<b>' . $digit_third . $digit_fourth . '</b>'; //Last two
   }
   else
@@ -267,7 +267,7 @@ function vy_run_quads_wcw_action()
   {
     $atts['reason'] = $response_text;
     $atts['outputid'] = $incoming_pointid_get;
-    $atts['outputamount'] = intval($reward_amount); //Yeah its going to round so what? NO DECIMALS!
+    $atts['outputamount'] = floatval($reward_amount); //Yeah its going to round so what? NO DECIMALS!
     vy_quads_wcw_credit_func($atts); //add funciton
   }
 

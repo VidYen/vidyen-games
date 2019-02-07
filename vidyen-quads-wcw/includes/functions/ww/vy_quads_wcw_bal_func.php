@@ -36,17 +36,11 @@ function vy_quads_wcw_bal_func($atts)
         'skip_confirm' => true,
         'mobile' => false,
         'woowallet' => false,
-		), $atts, 'vyps-pe' );
+		), $atts, 'vy-quads-wcw' );
 
     $user_id = get_current_user_id(); //Since this doesn't carry over from the shortcode $atts (thank god hard ware is improving exponentially)
-    $amount = floatval($atts['outputamount']); //desintation amount. Just making sure its numeric
-    $details = 'Quads Transfer';
-
-    //Well this was 100% easier. I should have did this years ago.
-    //Direct WooWallet Calls
 
     $woo_balance = woo_wallet()->wallet->get_wallet_balance($user_id);
 
     return $woo_balance; //With balance, there should be a number returned.
-
 }
