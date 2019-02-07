@@ -1,20 +1,20 @@
 <?php
-/*
+ /*
 Plugin Name:  VidYen Quads for WC Wallet
-Plugin URI:   https://wordpress.org/plugins/vidyen-point-system-vyps/
+Plugin URI:   https://wordpress.org/plugins/vidyen-quads-wcw/
 Description:  VidYen match four of a kink game for WooCommerce Wallet
 Version:      1.0.0
 Author:       VidYen, LLC
 Author URI:   https://vidyen.com/
 License:      GPLv3
-License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+License URI:  https://www.gnu.org/licenses/gpl-3.0.html
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 register_activation_hook(__FILE__, 'vy_quads_wcw_install');
 
-//adding menues
+//adding menus
 add_action('admin_menu', 'vy_quads_wcw_menu');
 
 function vy_quads_wcw_menu()
