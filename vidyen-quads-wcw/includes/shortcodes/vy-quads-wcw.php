@@ -30,14 +30,6 @@ function vy_quads_wcw_func( $atts )
       return;
   }
 
-  //Just making sure the pid is set valid or something odd
-  $pointID = intval($atts['pid']);
-
-  if ( $pointID < 1 OR !is_numeric($pointID))
-  {
-      return "Point ID (pid=) not set correctly!";
-  }
-
   //Adding a nonce to the post
   $vyps_nonce_check = wp_create_nonce( 'vy-quads-wcw-nonce-quads' );
 
@@ -59,9 +51,6 @@ function vy_quads_wcw_func( $atts )
 
   //Font size. Not really that important, but someone might complain
   $font_size = 'font-size:' . intval($atts['font']) . 'px;';
-
-  //Setting up point ID to be passed through hostile territory
-  $pointID_passed = base64_encode($pointID + 100256);
 
   //Setting the intervals of bets
   $bet_base = intval($atts['betbase']);
@@ -93,7 +82,6 @@ function vy_quads_wcw_func( $atts )
          var data = {
            'action': 'vy_run_quads_wcw_action',
            'multicheck': multi,
-           'pointid': '$pointID_passed',
            'vypsnoncepost': '$vyps_nonce_check',
          };
          // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
