@@ -67,7 +67,7 @@ function vy_quads_wcw_parent_menu_page()
 
 /*** SHORTCODE INCLUDES IN BASE ***/
 
-include( plugin_dir_path( __FILE__ ) . 'includes/shortcodes/vyps-quads-wcw.php'); //QUADS the game. Moving to a new tomorrow!
+include( plugin_dir_path( __FILE__ ) . 'includes/shortcodes/vy-quads-wcw.php'); //QUADS the game. Moving to a new tomorrow!
 
 /*** End of Shortcode Includes ***/
 
