@@ -53,20 +53,21 @@ function vy_quads_wcw_func( $atts )
   $font_size = 'font-size:' . intval($atts['font']) . 'px;';
 
   //Setting the intervals of bets
-  $bet_base = floatval($atts['betbase']); //no need to have ints with woowallet
+  $bet_base = intval($atts['betbase']); //no need to have ints with woowallet
   $bet_multi = intval($atts['betmulti']);
+  $bet_base_display = $bet_base / 100;
 
   //This is the passed number
-  $bet_first = ($bet_base);
+  $bet_first = $bet_base;
   $bet_second = ($bet_base * $bet_multi);
   $bet_third = ($bet_base * $bet_multi * $bet_multi);
   $bet_fourth = ($bet_base * $bet_multi * $bet_multi * $bet_multi);
 
   //The shortcode should allow users to set the intervals of the bets. Honestly, I think this is ok for ajax to pass as the outcome ratios are not determined by shortcode (and I don't think they will ever be directly. Perhaps an SQL pass will have to be done)
-  $bet_first_display = number_format($bet_base, 2);
-  $bet_second_display = number_format($bet_base * $bet_multi, 2);
-  $bet_third_display = number_format($bet_base * $bet_multi * $bet_multi, 2);
-  $bet_fourth_display = number_format($bet_base * $bet_multi * $bet_multi * $bet_multi, 2);
+  $bet_first_display = number_format($bet_base_display, 2);
+  $bet_second_display = number_format($bet_base_display * $bet_multi, 2);
+  $bet_third_display = number_format($bet_base_display * $bet_multi * $bet_multi, 2);
+  $bet_fourth_display = number_format($bet_base_display * $bet_multi * $bet_multi * $bet_multi, 2);
 
   $icon_url = "<span class=\"woo-wallet-icon-wallet\"></span>";
 
@@ -140,7 +141,7 @@ function vy_run_quads_wcw_action()
   check_ajax_referer( 'vy-quads-wcw-nonce-quads', 'vypsnoncepost' );
 
   //If its not clear, this is actually needed an should be left alone. In theory, user could hack a post somehow getting around the vypsnonce, but it just bets what its given and validates.
-  $incoming_multiplier = floatval( $_POST['multicheck'] );
+  $incoming_multiplier = intval( $_POST['multicheck'] );
   $bet_cost = $incoming_multiplier;
 
   // Shortcode additions.
