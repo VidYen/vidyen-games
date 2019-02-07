@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*** The RNG Quads Function ***/
 
-function vyps_rng_quads_func( $atts )
+function vy_quads_wcw_func( $atts )
 {
 
   $atts = shortcode_atts(
@@ -76,7 +76,7 @@ function vyps_rng_quads_func( $atts )
 
   $icon_url = vyps_point_icon_func($pointID);
 
-  $vyps_rng_quads_html_output = "
+  $vy_quads_wcw_html_output = "
     <script>
       var randomtime = setInterval(timeframe, 36);
       function timeframe() {
@@ -92,7 +92,7 @@ function vyps_rng_quads_func( $atts )
         document.getElementById(\"results_div\").style.display = 'none'; // enable button
         jQuery(document).ready(function($) {
          var data = {
-           'action': 'vyps_run_quads_action',
+           'action': 'vy_run_quads_wcw_action',
            'multicheck': multi,
            'pointid': '$pointID_passed',
            'vypsnoncepost': '$vyps_nonce_check',
@@ -125,20 +125,20 @@ function vyps_rng_quads_func( $atts )
     <div id=\"results_div\" align=\"center\" style=\"display:none;\"><span id=\"response_text\"></span><span>$icon_url </span><span id=\"reward_balance\">0</span></div>
     ";
 
-    return $vyps_rng_quads_html_output;
+    return $vy_quads_wcw_html_output;
 }
 
 /*** Short Code Name for RNG quads ***/
 
-add_shortcode( 'vyps-quads', 'vyps_rng_quads_func');
+add_shortcode( 'vy-quads-wcw', 'vy_quads_wcw_func');
 
 /*** PHP Functions to handle AJAX request***/
 
 // register the ajax action for authenticated users
-add_action('wp_ajax_vyps_run_quads_action', 'vyps_run_quads_action');
+add_action('wp_ajax_vy_run_quads_wcw_action', 'vy_run_quads_wcw_action');
 
 // handle the ajax request
-function vyps_run_quads_action()
+function vy_run_quads_wcw_action()
 {
 
   global $wpdb; // this is how you get access to the database
@@ -185,15 +185,15 @@ function vyps_run_quads_action()
   $atts['reason'] = 'QUADBET';
   */
   //Get current balance.
-  $pre_current_user_balance = vyps_balance_func($atts);
+  $pre_current_user_balance = vy_quads_wcw_bal_func($atts);
 
   //Deduct. I figure there is a check when need to run.
-  $deduct_results = vyps_deduct_func( $atts );
+  $deduct_results = vy_quads_wcw_debit_func($atts);
 
   if ( $deduct_results == 0 ){
 
     //Not enough to play!
-    $post_current_user_balance = vyps_balance_func($atts);
+    $post_current_user_balance = vy_quads_wcw_bal_func($atts);
 
     $response_text = "NOT ENOUGH POINTS!";
 
@@ -292,11 +292,10 @@ function vyps_run_quads_action()
     $atts['reason'] = $response_text;
     $atts['outputid'] = $incoming_pointid_get;
     $atts['outputamount'] = intval($reward_amount); //Yeah its going to round so what? NO DECIMALS!
-    vyps_add_func( $atts );
-
+    vy_quads_wcw_credit_func($atts); //add funciton
   }
 
-  $post_current_user_balance = vyps_balance_func($atts);
+  $post_current_user_balance = vy_quads_wcw_bal_func($atts); //BALANCE!
 
   $rng_array_server_response = array(
       'first' => $digit_first,

@@ -6,14 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //I am moving the WooWallet move function here.
 
 /*** WOOWALLET CREDIT FUNCTION ***/
-function vy_quads_wcw_credit_func( $atts ) {
-
+function vy_quads_wcw_credit_func($atts)
+{
   //Check if user is logged in.
   //I've decided that the ! bothers me. Readability over efficiency.
-  if ( is_user_logged_in() == FALSE ) {
-
+  if ( is_user_logged_in() == FALSE )
+  {
     return; //GET OUT!
-
   }
 
   $atts = shortcode_atts(
@@ -41,7 +40,7 @@ function vy_quads_wcw_credit_func( $atts ) {
 
     $user_id = get_current_user_id(); //Since this doesn't carry over from the shortcode $atts (thank god hard ware is improving exponentially)
     $amount = floatval($atts['outputamount']); //desintation amount. Just making sure its numeric
-    $details = 'VYPS Transfer';
+    $details = 'Quads Transfer';
 
     //Well this was 100% easier. I should have did this years ago.
     //Direct WooWallet Calls
