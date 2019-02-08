@@ -47,7 +47,7 @@ function vy_quads_wcw_func( $atts )
   $vyps_quads_jquery_folder_url = str_replace('shortcodes/', '', $vyps_quads_jquery_folder_url); //having to reomove the folder depending on where you plugins might happen to be
   $vyps_quads_js_url =  $vyps_quads_jquery_folder_url . 'jquery-1.8.3.min.js';
 
-  $starting_balance_html = "<span class=\"woo-wallet-icon-wallet\"></span>" . vy_quads_wcw_bal_func($atts);
+  $starting_balance_html = "<span class=\"woo-wallet-icon-wallet\"></span>" . ' ' . vy_quads_wcw_bal_func($atts);
 
   //Font size. Not really that important, but someone might complain
   $font_size = 'font-size:' . intval($atts['font']) . 'px;';
@@ -115,7 +115,7 @@ function vy_quads_wcw_func( $atts )
     <div align=\"center\"><span id=\"number_output\" style=\"display:none; $font_size\">0000</span></div>
     <div id=\"bet_action1\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_first)\" style=\"width:50%;\">$icon_url $$bet_first_display</button><button onclick=\"gettherng($bet_second)\" style=\"width:50%;\">$icon_url $$bet_second_display</button></div>
     <div id=\"bet_action2\" align=\"center\" style=\"width:100%;\"><button onclick=\"gettherng($bet_third)\" style=\"width:50%;\">$icon_url $$bet_third_display</button><button onclick=\"gettherng($bet_fourth)\" style=\"width:50%;\">$icon_url $$bet_fourth_display</button></div>
-    <div align=\"center\"><span>Balance: </span><span id=\"current_balance\">$starting_balance_html</span></div>
+    <div align=\"center\"><span>Balance: </span><span id=\"current_balance\"> $starting_balance_html</span></div>
     <div id=\"results_div\" align=\"center\" style=\"display:none;\"><span id=\"response_text\"></span><span>$icon_url </span><span id=\"reward_balance\">$0.00</span></div>
     ";
 
@@ -142,12 +142,11 @@ function vy_run_quads_wcw_action()
 
   //If its not clear, this is actually needed an should be left alone. In theory, user could hack a post somehow getting around the vypsnonce, but it just bets what its given and validates.
   $incoming_multiplier = intval($_POST['multicheck']);
-  $bet_cost = floatval(($incoming_multiplier / 100));
+  $bet_cost = floatval($incoming_multiplier) / 100;
 
   // Shortcode additions.
   $atts = shortcode_atts(
 		array(
-				'outputid' => $incoming_pointid_get,
 				'outputamount' => $bet_cost,
         'refer' => 0,
 				'to_user_id' => get_current_user_id(),
@@ -167,7 +166,7 @@ function vy_run_quads_wcw_action()
   if ($bet_cost >= $pre_current_user_balance)
   {
     //Not enough to play!
-    $post_current_user_balance = vy_quads_wcw_bal_func($atts);
+    $post_current_user_balance = floatval(vy_quads_wcw_bal_func($atts));
 
     $response_text = "NOT ENOUGH POINTS!";
 
